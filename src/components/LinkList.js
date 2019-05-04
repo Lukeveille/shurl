@@ -15,7 +15,38 @@ const ALL_LINKS_QUERY = gql`
   }
 `;
 
+const LINKS_SUBSCRIPTION = gql`
+  subscription NewLinkCreatedSubscription {
+    Link(filter: { mutation_in: [CREATED] }) {
+      node {
+        id
+        url
+        description
+        hash
+      }
+    }
+  }
+`;
+
 class LinkList extends Component {
+  componentDidMount() {
+    this.props.allLinksQuery.subscribeToMore({
+      document: LINKS_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        console.log(prev)
+        const newLinks = [
+          ...prev.allLinks,
+          subscriptionData.data.Link.node,
+        ];
+        const result = {
+          ...prev,
+          allLinks: newLinks,
+        };
+        return result;
+      },
+    });
+  };
+
   render() {
     if (this.props.allLinksQuery && this.props.allLinksQuery.loading) {
       return <div>Loading...</div>;
