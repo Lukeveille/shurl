@@ -38,4 +38,6 @@ class LinkList extends Component {
   };
 };
 
-export default graphql(ALL_LINKS_QUERY, { name: 'allLinksQuery' })(LinkList);
+export default graphql(ALL_LINKS_QUERY, {
+  name: 'allLinksQuery'
+})(LinkList);
