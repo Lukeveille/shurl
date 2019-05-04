@@ -4,9 +4,23 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient } from 'apollo-client-preset';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+const client = new ApolloClient({
+  link: new HttpLink('https://api.graph.cool/simple/v1/[SERVICE_ID]'),
+  cache: new InMemoryCache(),
+});
+
+const withApolloProvider = Comp => (
+  <ApolloProvider client={client}>{Comp}</ApolloProvider>
+)
+
+ReactDOM.render(
+  withApolloProvider(<App />),
+  document.getElementById('root')
+);
+
 serviceWorker.unregister();
