@@ -10,7 +10,7 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const client = new ApolloClient({
-  link: new HttpLink('https://api.graph.cool/simple/v1/[SERVICE_ID]'),
+  link: new HttpLink('https://api.graph.cool/simple/v1/cjv8v7z280dhl0110c9zxm7gw'),
   cache: new InMemoryCache(),
 });
 
