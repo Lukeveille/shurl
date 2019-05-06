@@ -16,6 +16,9 @@ const Stat = props => {
       <td>{months[month] + ' ' + day + ' ' + year + ' - ' + hour + ':' + min + ':' + sec}</td>
       <td>{props.stat.ip}</td>
       <td> {props.stat.device}</td>
+      <td> {props.stat.os}</td>
+      <td> {props.stat.browser}</td>
+      <td> {props.stat.location}</td>
       {/* <td>{props.stat.unique}</td> */}
     </tr>
   )

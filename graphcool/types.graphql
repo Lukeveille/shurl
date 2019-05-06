@@ -8,7 +8,10 @@ type Link @model {
 type LinkStats @model {
   id: ID! @isUnique
   ip: String! @migrationValue(value: "192.167.99.1")
+  os: String! @migrationValue(value: "iOS")
+  location: String! @migrationValue(value: "Toronto")
   device: String! @migrationValue(value: "iPhone")
+  browser: String! @migrationValue(value: "FireFox")
   time: Float! @migrationValue(value: 1557128674072)
   link: Link @relation(name: "LinkOnLinkStats")
 }

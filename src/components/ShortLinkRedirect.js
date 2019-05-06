@@ -12,18 +12,24 @@ const GET_FULL_LINK_QUERY = gql`
       stats {
         id
         ip
+        os
+        location
         device
+        browser
       }
     }
   }
 `;
 
 const CREATE_LINK_STATS_MUTATION = gql`
-  mutation CreateLinkStats($linkId: ID!, $time: Float!, $ip: String!, $device: String!) {
-    createLinkStats(linkId: $linkId, time: $time, ip: $ip, device: $device) {
+  mutation CreateLinkStats($linkId: ID!, $time: Float!, $ip: String!, $device: String!, $browser: String!, $os: String!, $location: String!) {
+    createLinkStats(linkId: $linkId, time: $time, ip: $ip, device: $device, browser: $browser os: $os location: $location) {
       id
       ip
+      os
+      location
       device
+      browser
     }
   }
 `;
@@ -33,7 +39,10 @@ class ShortLinkRedirect extends Component {
     super(props)
     this.state = {
       ip: '',
+      os: '',
+      location: '',
       device: '',
+      browser: '',
     }
   }
 
@@ -72,7 +81,10 @@ class ShortLinkRedirect extends Component {
         linkId: linkInfo.id,
         time,
         ip: this.state.ip,  
+        os: this.state.os,
+        location: this.state.location,
         device: this.state.device,
+        browser: this.state.browser,
       },
     });
   
