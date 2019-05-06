@@ -15,8 +15,8 @@ const Stat = props => {
     <tr>
       <td>{months[month] + ' ' + day + ' ' + year + ' - ' + hour + ':' + min + ':' + sec}</td>
       <td>{props.stat.ip}</td>
-      <td>{props.stat.unique}</td>
       <td> {props.stat.device}</td>
+      {/* <td>{props.stat.unique}</td> */}
     </tr>
   )
 }

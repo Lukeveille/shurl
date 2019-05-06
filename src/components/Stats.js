@@ -38,20 +38,20 @@ const Stats = ({
             <a href={'../'}>Shorten another URL</a>
             <br />
             <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.length : 0}</h4>
-            {allLinks[0] && allLinks[0].stats? 
+            {allLinks[0] && allLinks[0].stats && allLinks[0].stats.length > 0? 
               <table>
                 <thead>
                   <tr>
                     <th>Date</th>
                     <th>IP Address</th>
-                    <th>Unique IP?</th>
+                    {/* <th>Unique IP?</th> */}
                     <th>Device</th>
                   </tr>
                 </thead>
                 <tbody>
                   {allLinks[0].stats.map(stat => {
                     stat.ip = '192.167.99.1'
-                    stat.unique = 'false'
+                    // stat.unique = 'false'
                     stat.device = 'iPhone'
                     return (<Stat stat={stat} key={stat.id} />)
                   })}
