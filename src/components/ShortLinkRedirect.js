@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
+import * as deviceCheck from 'react-device-detect';
 
 const GET_FULL_LINK_QUERY = gql`
   query GetFullLink($hash: String!) {
@@ -28,6 +29,19 @@ const ShortLinkRedirect = ({
   hash,
   data: { loading, error, allLinks }
 }) => {
+  
+  
+  
+  const device = deviceCheck.isMobileOnly? 'Mobile' : deviceCheck.isTablet? 'Tablet' : deviceCheck.isWearable? 'Wearable Device' : deviceCheck.isConsole? 'Console' : deviceCheck.isSmartTV? 'Smart TV' : 'Desktop';
+  const platform = device === 'Desktop'? 'Desktop' : device + deviceCheck.isAndroid? 'Android' : deviceCheck.isIOS? 'iOS' : deviceCheck.isWinPhone? 'Windows Phone' : device
+  const model = deviceCheck.isMobile? platform + ' ' + deviceCheck.mobileVendor + ' ' + deviceCheck.mobileModel : platform
+  const browserName = deviceCheck.browserName;
+  const os = deviceCheck.osName + ' ' + deviceCheck.osVersion;
+
+  fetch('http://ip-api.com/json/')
+  .then(res => res.json())
+  .then(res => alert(res.city));
+
   if (error) {
     return <div>Error occurred</div>;
   }
@@ -49,8 +63,6 @@ const ShortLinkRedirect = ({
       time,
     },
   });
-
-  // alert(linkInfo.stats.time)
 
   window.location = allLinks[0].url;
   return null;

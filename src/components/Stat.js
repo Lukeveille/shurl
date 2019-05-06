@@ -11,7 +11,6 @@ const Stat = props => {
   const min = time.getMinutes();
   const sec = time.getSeconds();
   
-  // return ( <div>Hi</div> )
   return (
     <tr>
       <td>{months[month] + ' ' + day + ' ' + year + ' - ' + hour + ':' + min + ':' + sec}</td>

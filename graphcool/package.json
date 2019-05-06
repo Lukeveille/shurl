@@ -1,8 +1,5 @@
 {
   "name": "shurl",
   "version": "1.0.0",
-  "description": "My Graphcool Service",
-  "dependencies": {
-    "react-device-detect": "^1.6.2"
-  }
+  "description": "My Graphcool Service"
 }
