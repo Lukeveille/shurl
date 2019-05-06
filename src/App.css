@@ -8,3 +8,7 @@ table {
 td {
   padding: 1em;
 }
+
+.error {
+  color: #F00
+}

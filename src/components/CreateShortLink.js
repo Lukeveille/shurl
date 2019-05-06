@@ -48,6 +48,7 @@ class CreateShortLink extends Component {
     this.state = {
       url: '',
       hash: '',
+      error: '',
     };
   };
 
@@ -87,8 +88,18 @@ class CreateShortLink extends Component {
           }
         />
         <button onClick={() => {
-          this.createShortLink()
+          const regExp = /[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm
+
+          if (this.state.url.match(regExp)) {
+            this.setState({error: ''})
+            this.createShortLink()
+          } else {
+            this.setState({error: 'Not a valid URL!'})
+            this.setState({url: ''})
+          }
+
         }}>Create</button>
+        <p className='error'>{this.state.error}</p>
       </div>
     )
   }

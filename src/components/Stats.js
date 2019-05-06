@@ -37,8 +37,8 @@ const Stats = ({
     const count = uniqueCheck.reduce((n, val) => {
       return n + (val === stat.ip)
     }, 0)
-    stat.unique = count === 1? true : false
     
+    stat.unique = count === 1? true : false
     return stat
   }) : null
 
