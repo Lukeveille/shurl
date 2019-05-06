@@ -2,11 +2,11 @@ type Link @model {
   id: ID! @isUnique
   hash: String! @isUnique
   url: String!
-  stats: LinkStats @relation(name: "LinkOnLinkStats")
+  stats: [LinkStats!]! @relation(name: "LinkOnLinkStats")
 }
 
 type LinkStats @model {
   id: ID! @isUnique
-  clicks: Int
+  time: Float! @migrationValue(value: 1557128674072)
   link: Link @relation(name: "LinkOnLinkStats")
 }

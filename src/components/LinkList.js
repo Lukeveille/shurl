@@ -11,7 +11,8 @@ const ALL_LINKS_QUERY = gql`
       url
       hash
       stats {
-        clicks
+        id
+        time
       }
     }
   }
@@ -24,6 +25,10 @@ const LINKS_SUBSCRIPTION = gql`
         id
         url
         hash
+        stats {
+          id
+          time
+        }
       }
     }
   }
@@ -63,6 +68,7 @@ class LinkList extends Component {
 
     return (
       <div>
+        <h1>Full List</h1>
         {allLinks.map(link => <Link key={link.id} link={link} />)}
       </div>
     );

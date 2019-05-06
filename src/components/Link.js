@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 class Link extends Component {
   render() {
-    const clickCount = (this.props.link.stats && this.props.link.stats.clicks) || 0;
+    console.log(this.props.link)
+    const clickCount = (this.props.link.stats && this.props.link.stats.length) || 0;
     return (
       <div>
-      <a href={'../' + this.props.link.hash} target={"_blank"}>
+        <a href={'../' + this.props.link.hash} target={"_blank"}>
         {this.props.link.hash}
-      </a> --> clicks: {clickCount} - <a href={'/' + this.props.link.hash + '/stats'}>stats</a>
+      </a> - Clicks: {clickCount} - <a href={'/' + this.props.link.hash + '/stats'}>stats</a>
       </div>
     );
   }
@@ -19,6 +20,7 @@ Link.propTypes = {
     id: PropTypes.string,
     url: PropTypes.string,
     hash: PropTypes.string,
+    stats: PropTypes.array,
   }),
 };
 

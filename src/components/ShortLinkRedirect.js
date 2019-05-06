@@ -10,30 +10,20 @@ const GET_FULL_LINK_QUERY = gql`
       url
       stats {
         id
-        clicks
       }
     }
   }
 `;
 
-const UPDATE_CLICK_COUNT_MUTATION = gql`
-  mutation UpdateClickCount($id: ID!, $clicks: Int!) {
-    updateLink(id: $id, stats: {clicks: $clicks }) {
-      id
-    }
-  }
-`;
-
 const CREATE_LINK_STATS_MUTATION = gql`
-  mutation CreateLinkStats($linkId: ID!, $clicks: Int!) {
-    createLinkStats(linkId: $linkId, clicks: $clicks) {
+  mutation CreateLinkStats($linkId: ID!, $time: Float!) {
+    createLinkStats(linkId: $linkId, time: $time) {
       id
     }
   }
 `;
 
 const ShortLinkRedirect = ({
-  updateClickCount,
   createLinkStats,
   hash,
   data: { loading, error, allLinks }
@@ -51,25 +41,16 @@ const ShortLinkRedirect = ({
   }
 
   const linkInfo = allLinks[0];
-  if (!linkInfo.stats) {
-    createLinkStats({
-      variables: {
-        linkId: linkInfo.id,
-        clicks: 1,
-      },
-    });
-  } else {
-    let currentClicks = (linkInfo.stats && linkInfo.stats.clicks) || 0;
-    
-    currentClicks++;
+  const time = Date.now();
 
-    updateClickCount({
-      variables: {
-        id: linkInfo.id,
-        clicks: currentClicks,
-      },
-    });
-  }
+  createLinkStats({
+    variables: {
+      linkId: linkInfo.id,
+      time,
+    },
+  });
+
+  // alert(linkInfo.stats.time)
 
   window.location = allLinks[0].url;
   return null;
@@ -80,7 +61,6 @@ ShortLinkRedirect.propTypes = {
 };
 
 export default compose(
-  graphql(UPDATE_CLICK_COUNT_MUTATION, { name: 'updateClickCount' }),
   graphql(CREATE_LINK_STATS_MUTATION, { name: 'createLinkStats' }),
   graphql(GET_FULL_LINK_QUERY, {
     options: ({ hash }) => ({ variables: { hash } }),

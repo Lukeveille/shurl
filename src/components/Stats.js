@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 
+import Stat from './Stat'
+
 const GET_FULL_LINK_QUERY = gql`
   query GetFullLink($hash: String!) {
     allLinks(filter: { hash: $hash }) {
@@ -10,7 +12,7 @@ const GET_FULL_LINK_QUERY = gql`
       url
       stats {
         id
-        clicks
+        time
       }
     }
   }
@@ -35,7 +37,27 @@ const Stats = ({
             <br />
             <a href={'../'}>Shorten another URL</a>
             <br />
-            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.clicks : 0}</h4>
+            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.length : 0}</h4>
+            {allLinks[0] && allLinks[0].stats? 
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>IP Address</th>
+                    <th>Unique IP?</th>
+                    <th>Device</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allLinks[0].stats.map(stat => {
+                    stat.ip = '192.167.99.1'
+                    stat.unique = 'false'
+                    stat.device = 'iPhone'
+                    return (<Stat stat={stat} key={stat.id} />)
+                  })}
+                </tbody>
+              </table>
+            : ''}
           </div>
         }
       </div>
