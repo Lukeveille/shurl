@@ -11,31 +11,28 @@ const GET_FULL_LINK_QUERY = gql`
       url
       stats {
         id
+        ip
       }
     }
   }
 `;
 
 const CREATE_LINK_STATS_MUTATION = gql`
-  mutation CreateLinkStats($linkId: ID!, $time: Float!) {
-    createLinkStats(linkId: $linkId, time: $time) {
+  mutation CreateLinkStats($linkId: ID!, $time: Float!, $ip: String!) {
+    createLinkStats(linkId: $linkId, time: $time, ip: $ip) {
       id
+      ip
     }
   }
 `;
 
 class ShortLinkRedirect extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      ip: '',
-      device: '',
-      browser: '',
-      os: '',
-      location: '',
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //   }
+  // }
 
   componentDidMount() {
     const model = deviceCheck.isMobileOnly? 'Mobile' : deviceCheck.isTablet? 'Tablet' : deviceCheck.isWearable? 'Wearable Device' : deviceCheck.isConsole? 'Console' : deviceCheck.isSmartTV? 'Smart TV' : 'Desktop';
@@ -50,7 +47,7 @@ class ShortLinkRedirect extends Component {
   }
 
   render() {
-    alert(this.state.ip + '\n' + this.state.device + '\n' + this.state.browser + '\n' + this.state.os + '\n' + this.state.location)
+    // alert(this.state.ip + '\n' + this.state.device + '\n' + this.state.browser + '\n' + this.state.os + '\n' + this.state.location)
   
     if (this.props.data.error) {
       return <div>Error occurred</div>;
@@ -71,6 +68,7 @@ class ShortLinkRedirect extends Component {
       variables: {
         linkId: linkInfo.id,
         time,
+        ip: this.state.ip,  
       },
     });
   

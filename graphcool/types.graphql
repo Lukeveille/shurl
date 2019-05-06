@@ -7,6 +7,7 @@ type Link @model {
 
 type LinkStats @model {
   id: ID! @isUnique
+  ip: String! @migrationValue(value: "192.167.99.1")
   time: Float! @migrationValue(value: 1557128674072)
   link: Link @relation(name: "LinkOnLinkStats")
 }
