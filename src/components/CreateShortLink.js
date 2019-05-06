@@ -4,10 +4,9 @@ import gql from 'graphql-tag';
 import { graphql, withApollo } from 'react-apollo';
 
 const CREATE_SHORT_LINK_MUTATION = gql`
-  mutation CreateLinkMutation($url: String!, $description: String!, $hash: String!) {
+  mutation CreateLinkMutation($url: String!, $hash: String!) {
     createLink(
       url: $url,
-      description: $description,
       hash: $hash) {
       id
     }
@@ -47,7 +46,6 @@ class CreateShortLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: '',
       url: '',
     };
   };
@@ -59,18 +57,16 @@ class CreateShortLink extends Component {
     });
 
     const linkCount = linkCountQuery.data.links.count;
-    const hash = createHash(linkCount);
+    const hash = createHash(linkCount+1);
   
-    const { url, description } = this.state;
+    const { url } = this.state;
     await this.props.createShortLinkMutation({
         variables: {
             url,
-            description,
             hash,
         },
     });
     this.setState({
-      description: '',
       url: '',
     });
   };
@@ -78,15 +74,6 @@ class CreateShortLink extends Component {
   render() {
     return (
       <div>
-        <input
-          id="description"
-          type="text"
-          value={this.state.description}
-          placeholder="Link description"
-          onChange={e =>
-            this.setState({ description: e.target.value })
-          }
-        />
         <input
           id="url"
           type="text"

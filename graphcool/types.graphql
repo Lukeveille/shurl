@@ -2,5 +2,11 @@ type Link @model {
   id: ID! @isUnique
   hash: String!
   url: String!
-  description: String
+  stats: LinkStats @relation(name: "LinkOnLinkStats")
+}
+
+type LinkStats @model {
+  id: ID! @isUnique
+  clicks: Int
+  link: Link @relation(name: "LinkOnLinkStats")
 }

@@ -9,8 +9,10 @@ const ALL_LINKS_QUERY = gql`
     allLinks {
       id
       url
-      description
       hash
+      stats {
+        clicks
+      }
     }
   }
 `;
@@ -21,7 +23,6 @@ const LINKS_SUBSCRIPTION = gql`
       node {
         id
         url
-        description
         hash
       }
     }
@@ -33,7 +34,6 @@ class LinkList extends Component {
     this.props.allLinksQuery.subscribeToMore({
       document: LINKS_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
-        console.log(prev)
         const newLinks = [
           ...prev.allLinks,
           subscriptionData.data.Link.node,

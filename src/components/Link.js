@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 class Link extends Component {
   render() {
+    const clickCount = (this.props.link.stats && this.props.link.stats.clicks) || 0;
     return (
       <div>
-        {this.props.link.description} ({this.props.link.url} -{' '}
-        {this.props.link.hash})
+      <a href={'../' + this.props.link.hash} target={"_blank"}>
+        {this.props.link.hash}
+      </a> --> clicks: {clickCount}
       </div>
     );
   }
@@ -17,7 +19,6 @@ Link.propTypes = {
     id: PropTypes.string,
     url: PropTypes.string,
     hash: PropTypes.string,
-    description: PropTypes.string,
   }),
 };
 
