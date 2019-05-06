@@ -27,6 +27,27 @@ const Stats = ({
   hash,
   data: { loading, error, allLinks }
 }) => {
+
+  const stats = allLinks? allLinks[0].stats : null;
+  const uniqueCheck = []
+
+  let ipArray = stats ? stats.map(stat => {
+    uniqueCheck.push(stat.ip)
+    
+    const count = uniqueCheck.reduce((n, val) => {
+      return n + (val === stat.ip)
+    }, 0)
+    stat.unique = count === 1? true : false
+    
+    return stat
+  }) : null
+
+  ipArray = ipArray? ipArray.reverse() : ''
+
+  let uniqueSet = new Set(uniqueCheck);
+  uniqueSet = [...uniqueSet]
+
+
   return (
     <div>
       <h1>Your Link</h1>
@@ -42,22 +63,22 @@ const Stats = ({
             <br />
             <a href={'../'}>Shorten another URL</a>
             <br />
-            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.length : 0}</h4>
+            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.length : 0}   ({uniqueSet? uniqueSet.length : 0} unique)</h4>
             {allLinks[0] && allLinks[0].stats && allLinks[0].stats.length > 0? 
               <table>
                 <thead>
                   <tr>
                     <th>Date</th>
+                    <th>Unique?</th>
                     <th>IP Address</th>
-                    {/* <th>Unique IP?</th> */}
                     <th>Device</th>
                     <th>OS</th>
-                    <th>Location</th>
                     <th>Browser</th>
+                    <th>Location</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {allLinks[0].stats.map(stat => {
+                  {ipArray.map(stat => {
                     return (<Stat stat={stat} key={stat.id} />)
                   })}
                 </tbody>
