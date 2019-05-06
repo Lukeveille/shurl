@@ -12,21 +12,31 @@ const GET_FULL_LINK_QUERY = gql`
       stats {
         id
         ip
+        device
       }
     }
   }
 `;
 
 const CREATE_LINK_STATS_MUTATION = gql`
-  mutation CreateLinkStats($linkId: ID!, $time: Float!, $ip: String!) {
-    createLinkStats(linkId: $linkId, time: $time, ip: $ip) {
+  mutation CreateLinkStats($linkId: ID!, $time: Float!, $ip: String!, $device: String!) {
+    createLinkStats(linkId: $linkId, time: $time, ip: $ip, device: $device) {
       id
       ip
+      device
     }
   }
 `;
 
 class ShortLinkRedirect extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      ip: '',
+      device: '',
+    }
+  }
+
   componentDidMount() {
     const model = deviceCheck.isMobileOnly? 'Mobile' : deviceCheck.isTablet? 'Tablet' : deviceCheck.isWearable? 'Wearable Device' : deviceCheck.isConsole? 'Console' : deviceCheck.isSmartTV? 'Smart TV' : 'Desktop';
     const platform = model === 'Desktop'? 'Desktop' : model + deviceCheck.isAndroid? 'Android' : deviceCheck.isIOS? 'iOS' : deviceCheck.isWinPhone? 'Windows Phone' : model
@@ -62,6 +72,7 @@ class ShortLinkRedirect extends Component {
         linkId: linkInfo.id,
         time,
         ip: this.state.ip,  
+        device: this.state.device,
       },
     });
   
