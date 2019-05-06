@@ -1,6 +1,6 @@
 type Link @model {
   id: ID! @isUnique
-  hash: String!
+  hash: String! @isUnique
   url: String!
   stats: LinkStats @relation(name: "LinkOnLinkStats")
 }

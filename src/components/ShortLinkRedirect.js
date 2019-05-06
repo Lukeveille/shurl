@@ -51,8 +51,6 @@ const ShortLinkRedirect = ({
   }
 
   const linkInfo = allLinks[0];
-  if (allLinks) alert(linkInfo.stats)
-
   if (!linkInfo.stats) {
     createLinkStats({
       variables: {

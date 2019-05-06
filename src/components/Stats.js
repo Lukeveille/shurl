@@ -26,14 +26,18 @@ const Stats = ({
       <div>
         {
           loading? "Loading..." :
-          error? "Error occurred" :
+          error || !allLinks[0]? "Error occurred" :
           <div>
-            <a href={'/' + hash} target={"_blank"}>http://shurl.tk/{hash}</a> - {allLinks[0].stats? allLinks[0].stats.clicks : 0}
+            <small>Originally</small>
+            <br />
+            <small><a href={allLinks[0].url}>{allLinks[0].url}</a></small>
+            <h2>-> <a href={'/' + hash} target={"_blank"}>shurl.tk/{hash}</a>{' <-'}</h2>
+            <br />
+            <a href={'../'}>Shorten another URL</a>
+            <br />
+            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.clicks : 0}</h4>
           </div>
         }
-        <div>
-          <a href={'../'}>Shorten another URL</a>
-        </div>
       </div>
     </div>
   )
