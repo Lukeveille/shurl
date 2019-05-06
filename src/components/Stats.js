@@ -13,6 +13,7 @@ const GET_FULL_LINK_QUERY = gql`
       stats {
         id
         ip
+        device
         time
       }
     }
@@ -53,7 +54,7 @@ const Stats = ({
                   {allLinks[0].stats.map(stat => {
                     // stat.ip = '192.167.99.1'
                     // stat.unique = 'false'
-                    stat.device = 'iPhone'
+                    // stat.device = 'iPhone'
                     return (<Stat stat={stat} key={stat.id} />)
                   })}
                 </tbody>

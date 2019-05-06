@@ -27,13 +27,6 @@ const CREATE_LINK_STATS_MUTATION = gql`
 `;
 
 class ShortLinkRedirect extends Component {
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //   }
-  // }
-
   componentDidMount() {
     const model = deviceCheck.isMobileOnly? 'Mobile' : deviceCheck.isTablet? 'Tablet' : deviceCheck.isWearable? 'Wearable Device' : deviceCheck.isConsole? 'Console' : deviceCheck.isSmartTV? 'Smart TV' : 'Desktop';
     const platform = model === 'Desktop'? 'Desktop' : model + deviceCheck.isAndroid? 'Android' : deviceCheck.isIOS? 'iOS' : deviceCheck.isWinPhone? 'Windows Phone' : model
