@@ -63,7 +63,7 @@ const Stats = ({
             <br />
             <a href={'../'}>Shorten another URL</a>
             <br />
-            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.length : 0}   ({uniqueSet? uniqueSet.length : 0} unique)</h4>
+            <h4>Total clicks: {allLinks[0] && allLinks[0].stats? allLinks[0].stats.length : 0} ({uniqueSet? uniqueSet.length : 0} unique)</h4>
             {allLinks[0] && allLinks[0].stats && allLinks[0].stats.length > 0? 
               <table>
                 <thead>
