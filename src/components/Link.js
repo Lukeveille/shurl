@@ -8,7 +8,7 @@ class Link extends Component {
       <div>
       <a href={'../' + this.props.link.hash} target={"_blank"}>
         {this.props.link.hash}
-      </a> --> clicks: {clickCount}
+      </a> --> clicks: {clickCount} - <a href={'/' + this.props.link.hash + '/stats'}>stats</a>
       </div>
     );
   }

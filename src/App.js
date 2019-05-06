@@ -7,7 +7,7 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          <h2>Create a short link</h2>
+          <h1>Shorten a URL</h1>
           <CreateShortLink />
         </div>
       </div>

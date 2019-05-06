@@ -25,7 +25,7 @@ const UPDATE_CLICK_COUNT_MUTATION = gql`
 `;
 
 const CREATE_LINK_STATS_MUTATION = gql`
-  mutation CreateLinkStats($linksId: ID!, $clicks: Int!) {
+  mutation CreateLinkStats($linkId: ID!, $clicks: Int!) {
     createLinkStats(linkId: $linkId, clicks: $clicks) {
       id
     }
@@ -51,6 +51,7 @@ const ShortLinkRedirect = ({
   }
 
   const linkInfo = allLinks[0];
+  if (allLinks) alert(linkInfo.stats)
 
   if (!linkInfo.stats) {
     createLinkStats({
@@ -61,12 +62,12 @@ const ShortLinkRedirect = ({
     });
   } else {
     let currentClicks = (linkInfo.stats && linkInfo.stats.clicks) || 0;
-
+    
     currentClicks++;
 
     updateClickCount({
       variables: {
-        id: linkInfo.stats.id,
+        id: linkInfo.id,
         clicks: currentClicks,
       },
     });

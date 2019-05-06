@@ -47,13 +47,14 @@ class CreateShortLink extends Component {
     super(props);
     this.state = {
       url: '',
+      hash: '',
     };
   };
 
   createShortLink = async () => {
     const linkCountQuery = await this.props.client.query({
-        query: GET_LINK_COUNT_QUERY,
-        fetchPolicy: 'network-only',
+      query: GET_LINK_COUNT_QUERY,
+      fetchPolicy: 'network-only',
     });
 
     const linkCount = linkCountQuery.data.links.count;
@@ -61,14 +62,16 @@ class CreateShortLink extends Component {
   
     const { url } = this.state;
     await this.props.createShortLinkMutation({
-        variables: {
-            url,
-            hash,
-        },
+      variables: {
+        url,
+        hash,
+      },
     });
     this.setState({
       url: '',
+      hash: hash,
     });
+    window.location.href = '/' + this.state.hash + '/stats'
   };
 
   render() {
@@ -78,12 +81,14 @@ class CreateShortLink extends Component {
           id="url"
           type="text"
           value={this.state.url}
-          placeholder="Link URL"
+          placeholder="Long URL"
           onChange={e =>
             this.setState({ url: e.target.value })
           }
         />
-        <button onClick={() => this.createShortLink()}>Create</button>
+        <button onClick={() => {
+          this.createShortLink()
+        }}>Create</button>
       </div>
     )
   }
