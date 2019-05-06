@@ -29,18 +29,15 @@ const ShortLinkRedirect = ({
   hash,
   data: { loading, error, allLinks }
 }) => {
-  
-  
-  
-  const device = deviceCheck.isMobileOnly? 'Mobile' : deviceCheck.isTablet? 'Tablet' : deviceCheck.isWearable? 'Wearable Device' : deviceCheck.isConsole? 'Console' : deviceCheck.isSmartTV? 'Smart TV' : 'Desktop';
-  const platform = device === 'Desktop'? 'Desktop' : device + deviceCheck.isAndroid? 'Android' : deviceCheck.isIOS? 'iOS' : deviceCheck.isWinPhone? 'Windows Phone' : device
-  const model = deviceCheck.isMobile? platform + ' ' + deviceCheck.mobileVendor + ' ' + deviceCheck.mobileModel : platform
+  const model = deviceCheck.isMobileOnly? 'Mobile' : deviceCheck.isTablet? 'Tablet' : deviceCheck.isWearable? 'Wearable Device' : deviceCheck.isConsole? 'Console' : deviceCheck.isSmartTV? 'Smart TV' : 'Desktop';
+  const platform = model === 'Desktop'? 'Desktop' : model + deviceCheck.isAndroid? 'Android' : deviceCheck.isIOS? 'iOS' : deviceCheck.isWinPhone? 'Windows Phone' : model
+  const device = deviceCheck.isMobile? platform + ' ' + deviceCheck.mobileVendor + ' ' + deviceCheck.mobileModel : platform
   const browserName = deviceCheck.browserName;
   const os = deviceCheck.osName + ' ' + deviceCheck.osVersion;
 
   fetch('http://ip-api.com/json/')
   .then(res => res.json())
-  .then(res => alert(res.city));
+  .then(res => res.query);
 
   if (error) {
     return <div>Error occurred</div>;
