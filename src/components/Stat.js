@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Stat = props => {
-  console.log(props)
   const time = new Date(props.stat.time);
   const year = time.getFullYear();
   const day = time.getDate();

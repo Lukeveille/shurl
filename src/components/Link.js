@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class Link extends Component {
-  render() {
-    const clickCount = (this.props.link.stats && this.props.link.stats.length) || 0;
+const Link = props => {
+    const clickCount = (props.link.stats && props.link.stats.length) || 0;
     return (
       <div>
-        <a href={'../' + this.props.link.hash} target={"_blank"}>
-          {this.props.link.hash}
-        </a> - Clicks: {clickCount} - <a href={'/' + this.props.link.hash + '/stats'}>stats</a> - {this.props.link.url}
+        <a href={'../' + props.link.hash} target={"_blank"}>
+          {props.link.hash}
+        </a> - Clicks: {clickCount} - <a href={'/' + props.link.hash + '/stats'}>stats</a> - {props.link.url}
       </div>
     );
-  }
 };
 
 Link.propTypes = {

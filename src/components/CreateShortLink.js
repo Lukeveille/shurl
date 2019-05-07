@@ -1,28 +1,32 @@
 import React from 'react';
 
-const CreateShortLink = props => {
+const CreateShortLink = ({
+  state,
+  createShortLink,
+  setState,
+}) => {
     return (
       <div>
         <input
           id="url"
           type="text"
-          value={props.state.url}
+          value={state.url}
           placeholder="Long URL"
           onChange={e => {
-            props.setState({ url: e.target.value });
+            setState({ url: e.target.value });
           }}
         />
         <button onClick={() => {
           const regExp = /[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm
-          if (props.state.url.match(regExp)) {
-            props.setState({error: ''})
-            props.createShortLink()
+          if (state.url.match(regExp)) {
+            setState({error: ''})
+            createShortLink()
           } else {
-            props.setState({error:'Not a valid URL!'})
-            props.setState({url: ''})
+            setState({error:'Not a valid URL!'})
+            setState({url: ''})
           }
         }}>Create</button>
-        <p className='error'>{props.state.error}</p>
+        <p className='error'>{state.error}</p>
       </div>
     )
 };

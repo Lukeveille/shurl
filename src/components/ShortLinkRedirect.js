@@ -59,8 +59,6 @@ class ShortLinkRedirect extends Component {
   }
 
   render() {
-    // alert(this.state.ip + '\n' + this.state.device + '\n' + this.state.browser + '\n' + this.state.os + '\n' + this.state.location)
-  
     if (this.props.data.error) {
       return <div>Error occurred</div>;
     }
